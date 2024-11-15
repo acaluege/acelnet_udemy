@@ -1,3 +1,9 @@
 <?php
 
-echo '<h1>teste</h1>';
+class app
+{
+    
+}
+
+$app = new App();
+var_dump($app);
