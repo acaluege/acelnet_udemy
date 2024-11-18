@@ -1,19 +1,32 @@
 <?php
 
-class app
+class Private
 {
+    protected $controller = '_404';
+    
     function __construct()
     {
-        print_r($this->getURL());
+        $arr = $this->getURL();
+        
+        
+        $filename = "../private/controllers/".ucfirst($arr[0]).".php";
+        if(file_exists($filename))
+        {
+           require $filename; 
+           $this->$controller = $arr[0];    
+        }else{
+            require "../private/controllers/".$this->$controller.".php";
+        }
+        
+        $mycontroller = new $this->$controller();
     }
     
     private function getURL()
     {
         $url = $_GET['url'] ?? 'home';
-        $url = filter_var($url,FILTER_VALIDATE_URL);
-        $arr = explode("/",$url);
+        $arr = explode("/", filter_var(trim($url,"/")), FILTER_SANITIZE_URL);
         return $arr;
     }
 }
 
-$app = new App();
+$app = new Private();
