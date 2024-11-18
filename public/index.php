@@ -4,12 +4,15 @@ class app
 {
     function __construct()
     {
-        $this->teste();
+        print_r($this->getURL());
     }
     
-    function teste()
+    private function getURL()
     {
-        echo "ola mundo";
+        $url = $_GET['url'] ?? 'home';
+        $url = filter_var($url,FILTER_VALIDATE_URL);
+        $arr = explode("/",$url);
+        return $arr;
     }
 }
 
